@@ -1,14 +1,24 @@
 [versions]
 
+errorprone = "2.51.0"
+jspecify = "1.0.1"
 leaf-loader = "2.0.0"
 leaf-loom = "1.0.0"
+nullaway = "0.14.3"
+spotless = "8.10.4"
 zomboid = "42.21.0"
 
 [libraries]
 
+errorprone = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
 leaf-loader = { module = "dev.aoqia.leaf:loader", version.ref = "leaf-loader" }
+nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
 zomboid = { module = "com.theindiestone:zomboid", version.ref = "zomboid" }
 
 [plugins]
 
+errorprone = { id = "net.ltgt.errorprone", version = "5.1.1" }
 leaf-loom = { id = "dev.aoqia.leaf.loom", version.ref = "leaf-loom" }
+nullaway = { id = "net.ltgt.nullaway", version = "3.3.0" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

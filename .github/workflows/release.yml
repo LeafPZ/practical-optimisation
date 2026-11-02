@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Setup Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          java-version: 25
+          distribution: temurin
+          cache: gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6
+        with:
+          gradle-home-cache-excludes: "caches/leaf-loom"
+      - name: Release
+        run: ./gradlew build publish -Pleaf.loom.minimalSetup=true --stacktrace
+      - name: Generate Changelog
+        id: cliff
+        uses: orhun/git-cliff-action@a9a95522b26fe6403f7bb24031f21fb573d0f5ff # v4
+        with:
+          config: ".cliff.toml"
+          args: --latest -v
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            build/libs/!(*-SNAPSHOT|*-sources|*-javadoc)*.jar*
+          body: ${{ steps.cliff.outputs.content }}

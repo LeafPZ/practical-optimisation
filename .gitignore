@@ -7,11 +7,15 @@
 !/gradle
 !/src
 
+!/.cliff.toml
+!/.editorconfig
 !/.gitattributes
 !/.gitignore
 !/AGENTS.md
 !/build.gradle.kts
+!/checkstyle.xml
 !/CLAUDE.md
+!/eclipse-formatter.xml
 !/gradle.properties
 !/gradlew
 !/gradlew.bat

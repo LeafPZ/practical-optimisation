@@ -1,32 +1,29 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "${name}",
     "version": "${version}",
-    "name": "Example mod",
+    "name": "Practical Optimisation",
     "description": "This is an example description! Tell everyone what your mod is about!",
     "authors": [
-        "Me!"
+        "aoqia"
     ],
     "contact": {
         "sources": "https://github.com/aoqia194/leaf-example-mod"
     },
-    "license": "CC0-1.0",
-    "icon": "assets/modid/icon.png",
+    "license": "AGPL-3.0-or-later",
+    "icon": "assets/${name}/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.ExampleMod"
+            "dev.aoqia.leaf.mods.practical_optimisation.Main"
         ]
     },
     "mixins": [
-        "modid.mixins.json"
+        "${name}.mixins.json"
     ],
     "depends": {
-        "leaf-loader": ">=${loader_version}",
+        "leaf-loader": "^${loader_version}",
         "zomboid": "^${zomboid_version}",
         "java": "~25"
-    },
-    "suggests": {
-        "another-mod": "*"
     }
 }
