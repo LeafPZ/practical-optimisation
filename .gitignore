@@ -9,10 +9,15 @@
 
 !/.gitattributes
 !/.gitignore
-!/build.gradle*
+!/AGENTS.md
+!/build.gradle.kts
+!/CLAUDE.md
 !/gradle.properties
 !/gradlew
 !/gradlew.bat
+!/HEADER
 !/LICENSE
+!/LICENSE_EXCEPTION.md
 !/README.md
-!/settings.gradle*
+!/settings.gradle.kts
+!/shell.nix
