@@ -1,6 +1,4 @@
 plugins {
-    `maven-publish`
-
     alias(libs.plugins.leaf.loom)
 }
 
@@ -20,25 +18,7 @@ loom {
     }
 }
 
-repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
-
-    // Temporary: Loom hasn't included the new maven for Leaf Loader yet.
-    // This will be redundant.
-    maven {
-        name = "Leaf"
-        url = uri("https://maven.aoqia.dev/releases/")
-    }
-
-    mavenLocal()
-}
-
 dependencies {
-    // To change the versions, see gradle/libs.versions.toml
     zomboid(libs.zomboid)
     implementation(libs.leaf.loader)
     // implementation(libs.leaf.api)
@@ -75,26 +55,5 @@ tasks {
                 "${it}_${project.name}"
             }
         }
-    }
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    options.release = 25
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }

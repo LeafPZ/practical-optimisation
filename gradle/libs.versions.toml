@@ -1,6 +1,6 @@
 [versions]
 
-leaf-loader = "1.7.2"
+leaf-loader = "2.0.0"
 leaf-loom = "1.0.0"
 zomboid = "42.21.0"
 
