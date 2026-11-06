@@ -1,7 +1,6 @@
-import java.nio.charset.Charset
-
 import com.diffplug.spotless.LineEnding
 import net.ltgt.gradle.errorprone.errorprone
+import java.nio.charset.Charset
 
 val isCiBuild = providers.environmentVariable("CI").map { it.toBoolean() }.orElse(false).get()
 val isSnapshot = providers.gradleProperty("isSnapshot").map { it.toBoolean() }.orElse(false).get()
@@ -20,18 +19,32 @@ plugins {
 }
 
 loom {
+    // Decompiles only the zombie classes instead of every file.
+    decompilers {
+        getByName("vineflower") {
+            options.putAll(
+                mapOf(
+                    "included-classes" to "zombie.*",
+                )
+            )
+        }
+    }
+
     mods {
         create(project.name) {
             sourceSet(sourceSets.main.get())
         }
     }
 
-    // Decompiles only the zombie classes instead of every file.
-    decompilers {
-        getByName("vineflower") {
-            options.putAll(mapOf(
-                "included-classes" to "zombie.*",
-            ))
+    runs {
+        named("client") {
+            jvmArguments.addAll(
+                listOf(
+                    "-XX:+AllowEnhancedClassRedefinition",
+                    "-javaagent:/home/aoqia/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.2+mixin.0.8.7/edf98d1d98229e46e36c61774ae2b54dcd852981/sponge-mixin-0.17.2+mixin.0.8.7.jar"
+                )
+            )
+            programArguments.addAll(listOf("-debug"))
         }
     }
 }

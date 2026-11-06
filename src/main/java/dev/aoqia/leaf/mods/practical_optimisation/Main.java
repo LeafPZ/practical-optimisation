@@ -20,6 +20,7 @@
 package dev.aoqia.leaf.mods.practical_optimisation;
 
 import dev.aoqia.leaf.api.ModInitializer;
+import dev.aoqia.leaf.loader.impl.LeafLoaderImpl;
 
 import zombie.debug.DebugType;
 
@@ -27,8 +28,10 @@ public class Main implements ModInitializer {
     public static final String MOD_ID = "practical-optimisation";
     public static final DebugType LOGGER = DebugType.Mod;
 
+    public static boolean DEVELOPMENT = false;
+
     @Override
     public void onInitialize() {
-        LOGGER.debugln("[%s] %s", MOD_ID, "Hello Leaf World!!! >w<");
+        DEVELOPMENT = LeafLoaderImpl.INSTANCE.isDevelopmentEnvironment();
     }
 }
